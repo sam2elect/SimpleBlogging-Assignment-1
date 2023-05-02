@@ -89,36 +89,8 @@
 
     <div class="container mt-5">
         <div class="row">
-            <div class="col-md-8">
-                <div class="card mb-4">
-                    <img class="card-img-top" src="https://via.placeholder.com/750x300" alt="Card image cap">
-                    <div class="card-body">
-                        <h2 class="card-title">My First Blog Post</h2>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ut nisi eget
-                            lectus pulvinar luctus. Fusce vulputate volutpat magna, id convallis sapien malesuada eu.
-                            Donec volutpat felis in tellus dictum consectetur.</p>
-                        <a href="#" class="btn btn-primary">Read More &rarr;</a>
-                    </div>
-                    <div class="card-footer text-muted">
-                        Posted on January 1, 2022 by John Doe
-                    </div>
-                </div>
-
-                <div class="card mb-4">
-                    <img class="card-img-top" src="https://via.placeholder.com/750x300" alt="Card image cap">
-                    <div class="card-body">
-                        <h2 class="card-title">My Second Blog Post</h2>
-                        <p class="card-text">Nullam rhoncus, mauris quis ultricies tempor, ligula odio commodo velit,
-                            vel imperdiet enim metus eu ante. Duis auctor metus ac orci tincidunt, vel sodales lacus
-                            semper. Proin at diam a velit dapibus, sit amet blandit purus suscipit.</p>
-                        <a href="#" class="btn btn-primary">Read More &rarr;</a>
-                    </div>
-                    <div class="card-footer text-muted">
-                        Posted on February 1, 2022 by Jane Smith
-                    </div>
-                </div>
+            <div class="col-md-8"id="blogPostsContainer">
             </div>
-
             <div class="col-md-4">
                 <div class="card mb-4">
                     <div class="card-body">
@@ -158,7 +130,61 @@
             <p>&copy; 2023 My Blog. All Rights Reserved.</p>
         </div>
     </footer>
+    <script>
+        // Get the form elements
+        const postTitleInput = document.getElementById('postTitle');
+        const postDescriptionInput = document.getElementById('postDescription');
+        const postImageInput = document.getElementById('postImage');
 
+        // Get the container where the blog posts will be displayed
+        const blogPostsContainer = document.getElementById('blogPostsContainer');
+
+        // Add an event listener to the "Save changes" button
+        const saveChangesBtn = document.querySelector('.modal-footer button.btn-primary');
+        saveChangesBtn.addEventListener('click', function () {
+            // Create a new blog post element
+            const blogPost = document.createElement('div');
+            blogPost.classList.add('blog-post');
+
+            // Resize the image to 750 x 300 and add it to the blog post
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const img = new Image();
+                img.onload = function () {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = 750;
+                    canvas.height = 300;
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    const resizedImg = document.createElement('img');
+                    resizedImg.src = canvas.toDataURL();
+                    blogPost.appendChild(resizedImg);
+                    blogPostsContainer.appendChild(blogPost);
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(postImageInput.files[0]);
+            // Add the post title
+            const postTitle = document.createElement('h2');
+            postTitle.innerText = postTitleInput.value;
+            blogPost.appendChild(postTitle);
+
+            // Add the post description
+            const postDescription = document.createElement('p');
+            postDescription.innerText = postDescriptionInput.value;
+            blogPost.appendChild(postDescription);
+
+            // Add the new blog post to the container
+            blogPostsContainer.appendChild(blogPost);
+
+            // Reset the form
+            postTitleInput.value = '';
+            postDescriptionInput.value = '';
+            postImageInput.value = '';
+            
+        });
+
+    </script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
