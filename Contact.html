@@ -70,7 +70,7 @@
         const form = document.getElementById('contact-form');
 
         form.addEventListener('submit', function (event) {
-            event.preventDefault(); 
+            event.preventDefault();
 
             const name = document.getElementById('name-input').value;
             const phone = document.getElementById('phone-input').value;
@@ -99,6 +99,11 @@
         } else {
             console.log('No data found in localStorage.');
         }
+        const jsonData = JSON.stringify(data);
+        const formDataDiv = document.createElement('div');
+        formDataDiv.innerHTML = jsonData;
+        document.body.appendChild(formDataDiv);
+        localStorage.setItem('contactData', jsonData);
 
     </script>
 </body>
