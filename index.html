@@ -89,13 +89,42 @@
 
     <div class="container mt-5">
         <div class="row">
-            <div class="col-md-8"id="blogPostsContainer">
+
+            <div class="col-md-8" id="blogPostsContainer">
+                <div class="card mb-4">
+                    <img class="card-img-top" src="https://via.placeholder.com/750x300" alt="Card image cap">
+                    <div class="card-body">
+                        <h2 class="card-title">My First Blog Post</h2>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ut nisi eget
+                            lectus pulvinar luctus. Fusce vulputate volutpat magna, id convallis sapien malesuada eu.
+                            Donec volutpat felis in tellus dictum consectetur.</p>
+                        <a href="#" class="btn btn-primary">Read More &rarr;</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        Posted on January 1, 2022 by John Doe
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <img class="card-img-top" src="https://via.placeholder.com/750x300" alt="Card image cap">
+                    <div class="card-body">
+                        <h2 class="card-title">My Second Blog Post</h2>
+                        <p class="card-text">Nullam rhoncus, mauris quis ultricies tempor, ligula odio commodo velit,
+                            vel imperdiet enim metus eu ante. Duis auctor metus ac orci tincidunt, vel sodales lacus
+                            semper. Proin at diam a velit dapibus, sit amet blandit purus suscipit.</p>
+                        <a href="#" class="btn btn-primary">Read More &rarr;</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        Posted on February 1, 2022 by Jane Smith
+                    </div>
+                </div>
             </div>
             <div class="col-md-4">
                 <div class="card mb-4">
                     <div class="card-body">
                         <h4>About Me</h4>
-                        <p>Stay tuned for more exciting updates and features, as we continue to enhance and improve our product to meet your evolving needs. </p>
+                        <p>Stay tuned for more exciting updates and features, as we continue to enhance and improve our
+                            product to meet your evolving needs. </p>
                     </div>
                 </div>
 
@@ -143,35 +172,55 @@
         saveChangesBtn.addEventListener('click', function () {
             // Create a new blog post element
             const blogPost = document.createElement('div');
-            blogPost.classList.add('blog-post');
+            blogPost.classList.add('card', 'mb-4');
 
-            // Resize the image to 750 x 300 and add it to the blog post
+            // Create a new image element and set its attributes
+            // Create a new image element and set its attributes
+            const img = document.createElement('img');
+            img.classList.add('card-img-top');
             const reader = new FileReader();
             reader.onload = function (event) {
-                const img = new Image();
-                img.onload = function () {
-                    const canvas = document.createElement('canvas');
-                    const ctx = canvas.getContext('2d');
-                    canvas.width = 750;
-                    canvas.height = 300;
-                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                    const resizedImg = document.createElement('img');
-                    resizedImg.src = canvas.toDataURL();
-                    blogPost.appendChild(resizedImg);
-                    blogPostsContainer.appendChild(blogPost);
-                };
                 img.src = event.target.result;
             };
             reader.readAsDataURL(postImageInput.files[0]);
+            img.alt = 'Card image cap';
+            blogPost.appendChild(img);
+
+
+            // Create a new card body element and add the post title and description to it
+            const cardBody = document.createElement('div');
+            cardBody.classList.add('card-body');
+
             // Add the post title
             const postTitle = document.createElement('h2');
+            postTitle.classList.add('card-title');
             postTitle.innerText = postTitleInput.value;
-            blogPost.appendChild(postTitle);
+            cardBody.appendChild(postTitle);
 
             // Add the post description
             const postDescription = document.createElement('p');
+            postDescription.classList.add('card-text');
             postDescription.innerText = postDescriptionInput.value;
-            blogPost.appendChild(postDescription);
+            cardBody.appendChild(postDescription);
+
+            // Add the "Read More" button
+            const readMoreBtn = document.createElement('a');
+            readMoreBtn.classList.add('btn', 'btn-primary');
+            readMoreBtn.href = '#';
+            readMoreBtn.innerText = 'Read More →';
+            cardBody.appendChild(readMoreBtn);
+
+            blogPost.appendChild(cardBody);
+
+            // Create a new card footer element and add the post author and date to it
+            const cardFooter = document.createElement('div');
+            cardFooter.classList.add('card-footer', 'text-muted');
+
+            const authorName = 'John Doe'; // Replace with actual author name
+            const postDate = new Date().toLocaleDateString(); // Replace with actual post date
+
+            cardFooter.innerText = `Posted on ${postDate} by ${authorName}`;
+            blogPost.appendChild(cardFooter);
 
             // Add the new blog post to the container
             blogPostsContainer.appendChild(blogPost);
@@ -180,10 +229,10 @@
             postTitleInput.value = '';
             postDescriptionInput.value = '';
             postImageInput.value = '';
-            
         });
 
     </script>
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
