@@ -91,19 +91,19 @@
             form.reset();
 
             alert('Thank you for contacting us! We will get back to you soon.');
-        });
-        const storedData = localStorage.getItem('contactData');
+            const storedData = localStorage.getItem('contactData');
         if (storedData) {
             const data = JSON.parse(storedData);
             console.log(data);
         } else {
             console.log('No data found in localStorage.');
         }
-        const jsonData = JSON.stringify(data);
         const formDataDiv = document.createElement('div');
         formDataDiv.innerHTML = jsonData;
         document.body.appendChild(formDataDiv);
         localStorage.setItem('contactData', jsonData);
+        });
+        
 
     </script>
 </body>
