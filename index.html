@@ -157,23 +157,17 @@
         </div>
     </footer>
     <script>
-        // Get the form elements
         const postTitleInput = document.getElementById('postTitle');
         const postDescriptionInput = document.getElementById('postDescription');
         const postImageInput = document.getElementById('postImage');
 
-        // Get the container where the blog posts will be displayed
         const blogPostsContainer = document.getElementById('blogPostsContainer');
 
-        // Add an event listener to the "Save changes" button
         const saveChangesBtn = document.querySelector('.modal-footer button.btn-primary');
         saveChangesBtn.addEventListener('click', function () {
-            // Create a new blog post element
             const blogPost = document.createElement('div');
             blogPost.classList.add('card', 'mb-4');
 
-            // Create a new image element and set its attributes
-            // Create a new image element and set its attributes
             const img = document.createElement('img');
             img.classList.add('card-img-top');
             const reader = new FileReader();
@@ -184,24 +178,19 @@
             img.alt = 'Card image cap';
             blogPost.appendChild(img);
 
-
-            // Create a new card body element and add the post title and description to it
             const cardBody = document.createElement('div');
             cardBody.classList.add('card-body');
 
-            // Add the post title
             const postTitle = document.createElement('h2');
             postTitle.classList.add('card-title');
             postTitle.innerText = postTitleInput.value;
             cardBody.appendChild(postTitle);
 
-            // Add the post description
             const postDescription = document.createElement('p');
             postDescription.classList.add('card-text');
             postDescription.innerText = postDescriptionInput.value;
             cardBody.appendChild(postDescription);
 
-            // Add the "Read More" button
             const readMoreBtn = document.createElement('a');
             readMoreBtn.classList.add('btn', 'btn-primary');
             readMoreBtn.href = '#';
@@ -210,20 +199,17 @@
 
             blogPost.appendChild(cardBody);
 
-            // Create a new card footer element and add the post author and date to it
             const cardFooter = document.createElement('div');
             cardFooter.classList.add('card-footer', 'text-muted');
 
-            const authorName = 'John Doe'; // Replace with actual author name
-            const postDate = new Date().toLocaleDateString(); // Replace with actual post date
+            const authorName = 'John Doe'; 
+            const postDate = new Date().toLocaleDateString(); 
 
             cardFooter.innerText = `Posted on ${postDate} by ${authorName}`;
             blogPost.appendChild(cardFooter);
 
-            // Add the new blog post to the container
             blogPostsContainer.appendChild(blogPost);
 
-            // Reset the form
             postTitleInput.value = '';
             postDescriptionInput.value = '';
             postImageInput.value = '';
