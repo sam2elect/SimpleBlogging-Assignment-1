@@ -67,20 +67,16 @@
     </footer>
 
     <script>
-        // get form element
         const form = document.getElementById('contact-form');
 
-        // handle form submit event
         form.addEventListener('submit', function (event) {
-            event.preventDefault(); // prevent form from submitting normally
+            event.preventDefault(); 
 
-            // get form inputs
             const name = document.getElementById('name-input').value;
             const phone = document.getElementById('phone-input').value;
             const email = document.getElementById('email-input').value;
             const message = document.getElementById('message-input').value;
 
-            // create data object
             const data = {
                 name,
                 phone,
@@ -88,16 +84,12 @@
                 message
             };
 
-            // convert data object to JSON string
             const jsonData = JSON.stringify(data);
 
-            // store data locally in browser
             localStorage.setItem('contactData', jsonData);
 
-            // reset form
             form.reset();
 
-            // show success message to user
             alert('Thank you for contacting us! We will get back to you soon.');
         });
         const storedData = localStorage.getItem('contactData');
