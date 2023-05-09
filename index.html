@@ -79,7 +79,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeBtn">Close</button>
                         <button type="button" class="btn btn-primary">Save changes</button>
                     </div>
                 </div>
@@ -158,62 +158,68 @@
     </footer>
     <script>
         const postTitleInput = document.getElementById('postTitle');
-        const postDescriptionInput = document.getElementById('postDescription');
-        const postImageInput = document.getElementById('postImage');
+            const postDescriptionInput = document.getElementById('postDescription');
+            const postImageInput = document.getElementById('postImage');
 
-        const blogPostsContainer = document.getElementById('blogPostsContainer');
+            const blogPostsContainer = document.getElementById('blogPostsContainer');
+            const CloseBtnSave = document.getElementById('closeBtn');
 
-        const saveChangesBtn = document.querySelector('.modal-footer button.btn-primary');
-        saveChangesBtn.addEventListener('click', function () {
-            const blogPost = document.createElement('div');
-            blogPost.classList.add('card', 'mb-4');
+            const saveChangesBtn = document.querySelector('.modal-footer button.btn-primary');
+            saveChangesBtn.addEventListener('click', function () {
+                const blogPost = document.createElement('div');
+                blogPost.classList.add('card', 'mb-4');
 
-            const img = document.createElement('img');
-            img.classList.add('card-img-top');
-            const reader = new FileReader();
-            reader.onload = function (event) {
-                img.src = event.target.result;
-            };
-            reader.readAsDataURL(postImageInput.files[0]);
-            img.alt = 'Card image cap';
-            blogPost.appendChild(img);
+                const img = document.createElement('img');
+                img.classList.add('card-img-top');
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    img.src = event.target.result;
+                };
+                reader.readAsDataURL(postImageInput.files[0]);
+                img.alt = 'Card image cap';
+                blogPost.appendChild(img);
 
-            const cardBody = document.createElement('div');
-            cardBody.classList.add('card-body');
+                const cardBody = document.createElement('div');
+                cardBody.classList.add('card-body');
 
-            const postTitle = document.createElement('h2');
-            postTitle.classList.add('card-title');
-            postTitle.innerText = postTitleInput.value;
-            cardBody.appendChild(postTitle);
+                const postTitle = document.createElement('h2');
+                postTitle.classList.add('card-title');
+                postTitle.innerText = postTitleInput.value;
+                cardBody.appendChild(postTitle);
 
-            const postDescription = document.createElement('p');
-            postDescription.classList.add('card-text');
-            postDescription.innerText = postDescriptionInput.value;
-            cardBody.appendChild(postDescription);
+                const postDescription = document.createElement('p');
+                postDescription.classList.add('card-text');
+                postDescription.innerText = postDescriptionInput.value;
+                cardBody.appendChild(postDescription);
 
-            const readMoreBtn = document.createElement('a');
-            readMoreBtn.classList.add('btn', 'btn-primary');
-            readMoreBtn.href = '#';
-            readMoreBtn.innerText = 'Read More →';
-            cardBody.appendChild(readMoreBtn);
+                const readMoreBtn = document.createElement('a');
+                readMoreBtn.classList.add('btn', 'btn-primary');
+                readMoreBtn.href = '#';
+                readMoreBtn.innerText = 'Read More →';
+                cardBody.appendChild(readMoreBtn);
 
-            blogPost.appendChild(cardBody);
+                blogPost.appendChild(cardBody);
 
-            const cardFooter = document.createElement('div');
-            cardFooter.classList.add('card-footer', 'text-muted');
+                const cardFooter = document.createElement('div');
+                cardFooter.classList.add('card-footer', 'text-muted');
 
-            const authorName = 'Samir kumar'; 
-            const postDate = new Date().toLocaleDateString(); 
+                const authorName = 'Samir kumar';
+                const postDate = new Date().toLocaleDateString();
 
-            cardFooter.innerText = `Posted on ${postDate} by ${authorName}`;
-            blogPost.appendChild(cardFooter);
+                cardFooter.innerText = `Posted on ${postDate} by ${authorName}`;
+                blogPost.appendChild(cardFooter);
 
-            blogPostsContainer.appendChild(blogPost);
+                // Add new post to the top
+                const firstPost = blogPostsContainer.firstChild;
+                blogPostsContainer.insertBefore(blogPost, firstPost);
 
-            postTitleInput.value = '';
-            postDescriptionInput.value = '';
-            postImageInput.value = '';
-        });
+                postTitleInput.value = '';
+                postDescriptionInput.value = '';
+                postImageInput.value = '';
+                CloseBtnSave.click();
+
+            });
+
 
     </script>
 
